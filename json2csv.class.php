@@ -37,7 +37,7 @@ class JSON2CSVutil{
 		$this->save2CSV($file);
 	}
 
-	function savejsonFile2csv($JSONdata, $destFile){
+	function savejsonFile2csv($file, $destFile){
 		$this->JSONfromFile($file);
 		$this->save2CSV($destFile);
 	}

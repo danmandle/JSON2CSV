@@ -1,16 +1,32 @@
 <?php
-if(($_FILES["file"]["type"] != NULL) || ($_POST['json'] != NULL)){
+
+if(($_FILES["file"]["type"] != NULL) || ($_POST['json'] != NULL) || (isset($argv[1]))){
 
 	require_once('json2csv.class.php');
 	$JSON2CSV = new JSON2CSVutil;
-
-	if($_FILES["file"]["type"] != NULL){
+	
+	if(isset($argv[1])){
+		$shortopts .= "f::";  // Required value
+		$longopts  = array("file::","dest::");
+		$arguments = getopt($shortopts, $longopts);
+		
+		if(isset($arguments["dest"])){
+			$filepath = $arguments["dest"];
+		}
+		else{
+			$filepath = "JSON2.CSV";
+		}
+		
+		$JSON2CSV->savejsonFile2csv($arguments["file"], $filepath);
+	}
+	elseif($_FILES["file"]["type"] != NULL){
 		$JSON2CSV->JSONfromFile($_FILES["file"]["tmp_name"]);
+		$JSON2CSV->browserDL("JSON2.CSV");
 	}
 	elseif($_POST['json'] != NULL){
 		$JSON2CSV->readJSON($_POST['json']);
+		$JSON2CSV->browserDL("JSON2.CSV");
 	}
-	$JSON2CSV->browserDL("JSON2.CSV");
 }
 else{
 	?>
