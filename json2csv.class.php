@@ -6,12 +6,21 @@ class JSON2CSVutil{
 
 	function readJSON($JSONdata){
 		$this->dataArray = json_decode($JSONdata,1);
+		$this->prependColumnNames();
 		return $this->dataArray;
 	}
 
 	function JSONfromFile($file){
 		$this->dataArray = json_decode(file_get_contents($file),1);
+		$this->prependColumnNames();
 		return $this->dataArray;
+	}
+
+	private function prependColumnNames(){
+		foreach(array_keys($this->dataArray[0]) as $key){
+		    $keys[0][$key] = $key;
+		}
+		$this->dataArray = array_merge($keys, $this->dataArray);
 	}
 
 	function save2CSV($file){
