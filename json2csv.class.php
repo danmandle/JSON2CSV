@@ -3,6 +3,7 @@
 class JSON2CSVutil{
 	
 	public $dataArray;
+	public $isNested = FALSE;
 
 	function readJSON($JSONdata){
 		$this->dataArray = json_decode($JSONdata,1);
@@ -24,21 +25,41 @@ class JSON2CSVutil{
 	}
 
 	function save2CSV($file){
-		$fileIO = fopen($file, 'w+');
-		foreach ($this->dataArray as $fields) {
-		    fputcsv($fileIO, $fields);
+		if($this->isItNested() || !is_array($this->dataArray)){
+			echo "JSON is either invalid or has nested elements.";
 		}
-		fclose($fileIO);
+		else{
+			$fileIO = fopen($file, 'w+');
+			foreach ($this->dataArray as $fields) {
+			    fputcsv($fileIO, $fields);
+			}
+			fclose($fileIO);
+		}
 	}
 	function browserDL($CSVname){
-		header("Content-Type: text/csv; charset=utf-8");
-		header("Content-Disposition: attachment; filename=$CSVname");
-
-		$output = fopen('php://output', 'w');
-
-		foreach ($this->dataArray as $fields) {
-		    fputcsv($output, $fields);
+		if($this->isItNested() || !is_array($this->dataArray)){
+			echo "<h1>JSON is either invalid or has nested elements.</h1>";
 		}
+		else{
+			header("Content-Type: text/csv; charset=utf-8");
+			header("Content-Disposition: attachment; filename=$CSVname");
+
+			$output = fopen('php://output', 'w');
+
+			foreach ($this->dataArray as $fields) {
+			    fputcsv($output, $fields);
+			}
+		}
+	}
+
+	private function isItNested(){
+		foreach($this->dataArray as $data){
+			if(is_array($data)){
+				$isNested = TRUE;
+				break 1;
+			}	
+		}
+		return $this->isNested;
 	}
 
 	function savejson2csv($JSONdata, $file){
