@@ -21,13 +21,13 @@ if((isset($_FILES["file"]["type"]) && $_FILES["file"]["type"] != NULL)
 
 		$JSON2CSV->savejsonFile2csv($arguments["file"], $filepath);
 	}
-	elseif($_FILES["file"]["type"] != NULL){
+	elseif(($_FILES["file"]["type"]) != NULL){
 		$JSON2CSV->JSONfromFile($_FILES["file"]["tmp_name"]);
-		$JSON2CSV->browserDL("JSON2.CSV");
+		$JSON2CSV->browserDL(str_replace("json", "csv", $_FILES["file"]["name"]));
 	}
 	elseif($_POST['json'] != NULL){
 		$JSON2CSV->readJSON($_POST['json']);
-		$JSON2CSV->browserDL("JSON2.CSV");
+		$JSON2CSV->browserDL("JSON.CSV");
 	}
 }
 else{
@@ -38,7 +38,7 @@ else{
 
 <form action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data">
 <label for="json">JSON data:</label>
-<textarea name="json" cols="150" rows="40">
+<textarea name="json" cols="70" rows="20">
 
 </textarea>
 <br />

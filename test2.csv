@@ -1,0 +1,4 @@
+simulationNum,symbol,underlyingPrice,underlyingIV,forecastPrice,forecastIV,forecastDays,forecastTime,forecastAmount,isEliminated,reasonForElimination,responseTime,profitability,resultAmount,comissionTotal,pathRating,price,strike,time,days_to_expiration,quantity,nodeRating,price,strike,time,days_to_expiration,quantity,nodeRating,
+1,BRCD,7.515,0.00001,7.4516628808745,0.7348473568809507,31,20131005,7175,1,0,novalue,3.853453874588,
+2,AA,7.935,0.00001,9.5423367476894,0.06476055389582175,77,20131120,1390,1,0,novalue,0.0065140724182129,
+16,EZU,35.5,0.469201,35.773053463701,0.23221417962010502,16,20130920,2458,,-1,4.2060079574585,535.47702780641,2145.2625,15.2625,0.51735265796424,novalue,35,1379736000,24,-3,0.51735265796424,novalue,35,1379736000,24,-3,0.51735265796424,
