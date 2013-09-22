@@ -63,7 +63,7 @@ class JSON2CSVutil{
 	function browserDL($CSVname){
 
 		if($this->isItNested() || !is_array($this->dataArray)){
-			echo "<h1>JSON is either invalid or has nested elements.</h1>";
+			echo "<h1>JSON is either invalid or you encountered an edge case I missed. Please let me know at arelangi@gmail.com<h1>";
 		}
 		else{
 			header("Content-Type: text/csv; charset=utf-8");
@@ -88,7 +88,7 @@ class JSON2CSVutil{
 	function save2CSV($file){
 
 		if($this->isItNested() || !is_array($this->dataArray)){
-			echo "JSON is either invalid or has nested elements.";
+			echo "<h1>JSON is either invalid or you encountered an edge case I missed. Please let me know at arelangi@gmail.com<h1>";
 		}
 		else{
 			$fileIO = fopen($file, 'w+');
