@@ -1,4 +1,0 @@
-simulationNum,symbol,underlyingPrice,underlyingIV,forecastPrice,forecastIV,forecastDays,forecastTime,forecastAmount,isEliminated,reasonForElimination,responseTime,profitability,resultAmount,comissionTotal,pathRating,price,strike,time,days_to_expiration,quantity,nodeRating
-100,BIDU,138.655,0.498208,137.7072068,0.012470372,3,20130907,2160,1,7,,3.963137865,,,,,,,,,
-99,GTAT,6.385,0.623987,6.024596115,-0.970452275,49,20131023,1445,1,7,,3.969872952,,,,,,,,,
-95,FSLR,36.875,0.537211,40.16163603,-0.198794657,28,20131002,2306,,-1,4.037657976,682.5133317,2190.2625,15.2625,0.909483618,,37,1380311700,30,-3,0.909483618

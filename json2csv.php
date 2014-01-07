@@ -1,5 +1,7 @@
 <?php
 
+ini_set('memory_limit', '-1');
+
 if((isset($_FILES["file"]["type"]) && $_FILES["file"]["type"] != NULL)
 	|| (isset($_POST['json']) && $_POST['json'] != NULL)
 	|| (isset($argv[1]))){
@@ -19,13 +21,16 @@ if((isset($_FILES["file"]["type"]) && $_FILES["file"]["type"] != NULL)
 			$filepath = "JSON2.CSV";
 		}
 
+
 		$JSON2CSV->savejsonFile2csv($arguments["file"], $filepath);
 	}
 	elseif(($_FILES["file"]["type"]) != NULL){
+
 		$JSON2CSV->JSONfromFile($_FILES["file"]["tmp_name"]);
 		$JSON2CSV->browserDL(str_replace("json", "csv", $_FILES["file"]["name"]));
 	}
 	elseif($_POST['json'] != NULL){
+
 		$JSON2CSV->readJSON($_POST['json']);
 		$JSON2CSV->browserDL("JSON.CSV");
 	}

@@ -2,19 +2,21 @@
 
 require_once('arrayToCSV.php');
 
+ini_set('memory_limit', '-1');
+
+
 class JSON2CSVutil{
 	
 	public $dataArray;
 	public $isNested = FALSE;
 
 	function readJSON($JSONdata){
-
 		$this->dataArray = json_decode($JSONdata,1);
 		$this->prependColumnNames();
 		return $this->dataArray;
 	}
 
-	private function isNested($array){
+	function isNested($array){
 		foreach($array as $data){
 			if(is_array($data)){
 				return TRUE;
@@ -24,8 +26,7 @@ class JSON2CSVutil{
 	}
 
 
-	private function getAllKeys($array)
-	{
+	function getAllKeys($array){
 	    $result = array();
 	    $children = array();
 	    foreach($array as $sub=>$value) {
@@ -43,7 +44,7 @@ class JSON2CSVutil{
 	    return $result;
 	}
 
-	private function prependColumnNames(){
+	function prependColumnNames(){
 		$keys = array();
 		foreach ($this->dataArray as $key => $value) {	
 			
@@ -79,7 +80,9 @@ class JSON2CSVutil{
 
 
 	function JSONfromFile($file){
-		$this->dataArray = json_decode(file_get_contents($file),1);
+		
+		
+		$this->dataArray = json_decode(file_get_contents($file),TRUE);
 		$this->prependColumnNames();
 		return $this->dataArray;
 	}
@@ -91,6 +94,10 @@ class JSON2CSVutil{
 			echo "<h1>JSON is either invalid or you encountered an edge case I missed. Please let me know at arelangi@gmail.com<h1>";
 		}
 		else{
+
+			echo 'orey '.$file;
+			ob_flush();
+
 			$fileIO = fopen($file, 'w+');
 			foreach ($this->dataArray as $fields) {
 			    fputcsv($fileIO, $fields);
@@ -99,7 +106,7 @@ class JSON2CSVutil{
 		}
 	}
 	
-	private function isItNested(){
+	function isItNested(){
 		foreach($this->dataArray as $data){
 			if(is_array($data)){
 				$isNested = TRUE;
