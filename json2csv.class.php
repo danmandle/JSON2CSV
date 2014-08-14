@@ -66,6 +66,20 @@ class JSON2CSVutil{
 		}
 	}
 
+	function flattenDL($CSVname){
+		header("Content-Type: text/csv; charset=utf-8");
+		header("Content-Disposition: attachment; filename=$CSVname");
+		$output = fopen("php://output", "w");
+		foreach ($this->dataArray as $items) {
+			$flatData = array();
+			$fields = new RecursiveIteratorIterator(new RecursiveArrayIterator($items));
+			foreach($fields as $value) {
+  				array_push($flatData, $value);
+			}
+			fputcsv($output, $flatData, ";", '"');
+		}
+	}
+
 	private function isItNested(){
 		foreach($this->dataArray as $data){
 			if(is_array($data)){
@@ -79,6 +93,11 @@ class JSON2CSVutil{
 	function savejson2csv($JSONdata, $file){
 		$this->readJSON($JSONdata);
 		$this->save2CSV($file);
+	}
+
+	function flattenjson2csv($JSONdata, $file){
+		$this->readJSON($JSONdata);
+		$this->flatten2CSV($file);
 	}
 
 	function savejsonFile2csv($file, $destFile){
