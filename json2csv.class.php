@@ -36,6 +36,20 @@ class JSON2CSVutil{
 			fclose($fileIO);
 		}
 	}
+
+	function flatten2CSV($file){
+		$fileIO = fopen($file, 'w+');
+		foreach ($this->dataArray as $items) {
+			$flatData = array();
+			$fields = new RecursiveIteratorIterator(new RecursiveArrayIterator($items));
+			foreach($fields as $value) {
+  				array_push($flatData, $value);
+			}
+			fputcsv($fileIO, $flatData, ";", '"');
+		}
+		fclose($fileIO);
+	}
+
 	function browserDL($CSVname){
 		if($this->isItNested() || !is_array($this->dataArray)){
 			echo "<h1>JSON is either invalid or has nested elements.</h1>";
@@ -49,6 +63,20 @@ class JSON2CSVutil{
 			foreach ($this->dataArray as $fields) {
 			    fputcsv($output, $fields);
 			}
+		}
+	}
+
+	function flattenDL($CSVname){
+		header("Content-Type: text/csv; charset=utf-8");
+		header("Content-Disposition: attachment; filename=$CSVname");
+		$output = fopen("php://output", "w");
+		foreach ($this->dataArray as $items) {
+			$flatData = array();
+			$fields = new RecursiveIteratorIterator(new RecursiveArrayIterator($items));
+			foreach($fields as $value) {
+  				array_push($flatData, $value);
+			}
+			fputcsv($output, $flatData, ";", '"');
 		}
 	}
 
@@ -67,9 +95,19 @@ class JSON2CSVutil{
 		$this->save2CSV($file);
 	}
 
+	function flattenjson2csv($JSONdata, $file){
+		$this->readJSON($JSONdata);
+		$this->flatten2CSV($file);
+	}
+
 	function savejsonFile2csv($file, $destFile){
 		$this->JSONfromFile($file);
 		$this->save2CSV($destFile);
+	}
+
+	function flattenjsonFile2csv($file, $destFile){
+		$this->JSONfromFile($file);
+		$this->flatten2CSV($destFile);
 	}
 
 }

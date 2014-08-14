@@ -19,15 +19,15 @@ if((isset($_FILES["file"]["type"]) && $_FILES["file"]["type"] != NULL)
 			$filepath = "JSON2.CSV";
 		}
 
-		$JSON2CSV->savejsonFile2csv($arguments["file"], $filepath);
+		$JSON2CSV->flattenjsonFile2csv($arguments["file"], $filepath);
 	}
 	elseif($_FILES["file"]["type"] != NULL){
 		$JSON2CSV->JSONfromFile($_FILES["file"]["tmp_name"]);
-		$JSON2CSV->browserDL("JSON2.CSV");
+		$JSON2CSV->flattenDL("JSON2.CSV");
 	}
 	elseif($_POST['json'] != NULL){
 		$JSON2CSV->readJSON($_POST['json']);
-		$JSON2CSV->browserDL("JSON2.CSV");
+		$JSON2CSV->flattenDL("JSON2.CSV");
 	}
 }
 else{
